@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CreateTable>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List of users</h2>
+<hr />
+@if (!String.IsNullOrEmpty(TempData["msg"] as String))
+{
+    <! --  botstarp kanang green  -->
+    <div class="alert alert-success "> 
+        @TempData["msg"]
+
+    </div>
+}
+ <div class="Row">
+      <div class="col-md-6">
+          <table class="table table-striped">
+              <tr>
+                  <th>ID</th>
+                  <th>USERNAME</th>
+                  <th>ACTION</th>
+              </tr>
+              @foreach (var u in Model)
+              {
+                  <tr>
+                      <th>@u.id</th>
+                      <th>@u.username</th>
+                      <th>
+                          <a href="~/Home/Update/@u.id">Update</a> || 
+                          <a href="~/Home/Delete/@u.id">Delete</a>
+                      </th>
+                  </tr>
+              }
+          </table>
+
+      </div>
+ </div>
+
