@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SimplifiedCRUDDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SimplifiedCRUDD.dbo.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SimplifiedCRUDD.dbo.Userr' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Userr">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="nvarchar" MaxLength="50" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityContainer Name="SimplifiedCRUDDModelStoreContainer">
+    <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Role].[id] AS [id], 
+[Role].[RoleName] AS [RoleName]
+FROM [dbo].[Role] AS [Role]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Userr" EntityType="Self.Userr" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[Userr].[id] AS [id], 
+[Userr].[username] AS [username], 
+[Userr].[password] AS [password]
+FROM [dbo].[Userr] AS [Userr]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>
