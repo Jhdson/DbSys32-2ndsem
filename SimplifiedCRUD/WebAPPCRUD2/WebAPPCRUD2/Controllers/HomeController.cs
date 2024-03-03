@@ -4,8 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace WebAPPCRUD2.Controllers
 {
+    [Authorize]
     public class HomeController : BaseController
     {
         
@@ -13,9 +15,29 @@ namespace WebAPPCRUD2.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            List<Userr> userList = _userRepo.GetAll();
-            return View(userList);
+            //   List<Userr> userList = _userRepo.GetAll();
+            //  return View(userList);
+            return View(_userRepo.GetAll());
         }
+        [AllowAnonymous]
+        public ActionResult Login()
+        {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index");
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(Userr u)
+        {
+            
+            var user = _userRepo.Table.Where(m => m.username == u.username).FirstOrDefault();
+            if(user != null){
+                FormsAuthentication.SetAuthCookie(u.username, false);
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", "User not Exist or Incorrect Password");
+            return View(u);
+         }
 
         public ActionResult Create()
         {

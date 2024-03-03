@@ -12,6 +12,9 @@ namespace WebAPPCRUD2.Repository
     {
         private DbContext _db;
         private DbSet<T> _table;
+
+        public object Table { get; internal set; }
+
         public BaseRepository()
         {
             _db = new SimplifiedCRUDDEntities();

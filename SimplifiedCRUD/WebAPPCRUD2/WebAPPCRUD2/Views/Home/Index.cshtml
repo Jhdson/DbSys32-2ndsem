@@ -5,10 +5,13 @@
 }
 
 <h2>Index</h2>
-
+@if(user.Identity.IsAuthenticated)
+{
 <p>
-    @Html.ActionLink("Create New", "Create")
+ @Html.ActionLink("Create New", "Create")
 </p>
+}
+
 @if (!String.IsNullOrEmpty(TempData["Msg"] as String))
 {
     <div class="alert alert-success">@TempData["Msg"]</div>
@@ -19,24 +22,31 @@
         <th>
             Username
         </th>
+        @if(user.Identity.IsAuthenticated){
         
-        <th> Action 
+        <th>
+            Action
         </th>
+        
+        }
+     
     </tr>
     @{ int i = 1;}
 @foreach (var item in Model) {
     <tr>
+        <td>@i</td>
         <td>
             @Html.DisplayFor(modelItem => item.id   )
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.username )
-        </td>
+@if(user.Identity.IsAuthenticated)
+        {
+      
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
             @Html.ActionLink("Details", "Details", new { id=item.id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.id })
         </td>
+        }
     </tr>
     i++;
 }

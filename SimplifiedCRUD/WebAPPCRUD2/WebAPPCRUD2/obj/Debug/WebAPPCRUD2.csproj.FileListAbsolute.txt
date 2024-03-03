@@ -46,3 +46,6 @@ c:\users\jayhu\onedrive\documents\visual studio 2015\Projects\WebAPPCRUD2\WebAPP
 c:\users\jayhu\onedrive\documents\visual studio 2015\Projects\WebAPPCRUD2\WebAPPCRUD2\bin\System.Web.Mvc.xml
 c:\users\jayhu\onedrive\documents\visual studio 2015\Projects\WebAPPCRUD2\WebAPPCRUD2\obj\Debug\WebAPPCRUD2.dll
 c:\users\jayhu\onedrive\documents\visual studio 2015\Projects\WebAPPCRUD2\WebAPPCRUD2\obj\Debug\WebAPPCRUD2.pdb
+C:\Users\jayhu\OneDrive\Documents\GitHub\DbSys32-2ndsem\SimplifiedCRUD\WebAPPCRUD2\WebAPPCRUD2\obj\Debug\WebAPPCRUD2.dll
+C:\Users\jayhu\OneDrive\Documents\GitHub\DbSys32-2ndsem\SimplifiedCRUD\WebAPPCRUD2\WebAPPCRUD2\obj\Debug\WebAPPCRUD2.pdb
+C:\Users\jayhu\OneDrive\Documents\GitHub\DbSys32-2ndsem\SimplifiedCRUD\WebAPPCRUD2\WebAPPCRUD2\obj\Debug\WebAPPCRUD2.csprojResolveAssemblyReference.cache
