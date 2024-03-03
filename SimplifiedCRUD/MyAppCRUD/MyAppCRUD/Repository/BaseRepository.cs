@@ -18,12 +18,12 @@ namespace MyAppCRUD.Repository
             _db = new SimplifiedCRUDEntities();
             _table = _db.Set<T>();
         }
-        public T get(object id)
+        public T Get(object id)
         {
             return _table.Find(id);
         }
 
-        public List<T> GetAll()
+        public List<T> GetAll()  
         {
             return _table.ToList();
         }
@@ -48,7 +48,7 @@ namespace MyAppCRUD.Repository
 
             try
             {
-                var obj = get(id);
+                var obj = Get(id);
                 _table.Remove(obj);
                 _db.SaveChanges();
 
@@ -66,7 +66,7 @@ namespace MyAppCRUD.Repository
 
             try
             {
-                var oldObj = get(id);
+                var oldObj = Get(id);
                 _db.Entry(oldObj).CurrentValues.SetValues(t);
                 _db.SaveChanges();
 
@@ -76,6 +76,11 @@ namespace MyAppCRUD.Repository
             {
                 return ErrorCode.Error;
             }
+        }
+
+        public T get(object id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

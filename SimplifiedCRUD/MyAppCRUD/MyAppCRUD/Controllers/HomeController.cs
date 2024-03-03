@@ -11,10 +11,28 @@ namespace MyAppCRUD.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            List<Userr> userList = _userRepo.GetAll();
-            return View(userList);
+            // List<Userr> userList = _userRepo.GetAll();
+            // return View(userList);
+            return View(_userRepo.GetAll());
         }
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+     /*   public ActionResult Login(Userr u )
+        {
+            var user = _userRepo.Table.Where(m => m.username == u.username).FirstOrDefault();
 
+           if(Userr != null)
+            {
+                FormsAuthentication.SetAuthCookie(u.username, false);
+            }
+
+
+            return View();
+        }
+        */
         public ActionResult Create()
         {
             return View();
