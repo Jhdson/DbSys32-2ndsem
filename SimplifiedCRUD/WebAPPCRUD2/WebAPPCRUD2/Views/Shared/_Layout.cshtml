@@ -23,6 +23,11 @@
                 <ul class="nav navbar-nav">
                     @if (User.Identity.IsAuthenticated)
                     {
+                        if (User.IsInRole("Manager"))
+                        {
+                            <li><a href="~/Home/Create">Create</a></li>
+                            <li><a href="~/Home/">Admin Home</a></li>
+                        }
                         <li><a href="#">@User.Identity.Name</a></li>
                         <li><a href="~/Home/Logout">Logout</a></li>
                     }
@@ -30,11 +35,10 @@
                     {
                         <li><a href="~/Home/Login">Login</a></li>
                     }
-                             </ul>
+                </ul>
             </div>
         </div>
     </div>
-
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -42,7 +46,6 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 </body>

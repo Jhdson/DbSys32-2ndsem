@@ -12,13 +12,12 @@ namespace WebAPPCRUD2
     using System;
     using System.Collections.Generic;
     
-    public partial class Userr
+    public partial class sysdiagrams
     {
-        public int id { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-    
-        public virtual Userr Userr1 { get; set; }
-        public virtual Userr Userr2 { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

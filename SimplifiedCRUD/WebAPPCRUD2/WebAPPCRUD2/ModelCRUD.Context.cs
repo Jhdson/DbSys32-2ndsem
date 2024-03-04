@@ -26,6 +26,9 @@ namespace WebAPPCRUD2
         }
     
         public DbSet<Role> Role { get; set; }
+        public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<Userr> Userr { get; set; }
+        public DbSet<UserRolee> UserRolee { get; set; }
+        public DbSet<vw_UserRole> vw_UserRole { get; set; }
     }
 }

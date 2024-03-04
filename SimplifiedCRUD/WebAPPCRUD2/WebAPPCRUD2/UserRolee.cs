@@ -12,13 +12,10 @@ namespace WebAPPCRUD2
     using System;
     using System.Collections.Generic;
     
-    public partial class Userr
+    public partial class UserRolee
     {
         public int id { get; set; }
-        public string username { get; set; }
-        public string password { get; set; }
-    
-        public virtual Userr Userr1 { get; set; }
-        public virtual Userr Userr2 { get; set; }
+        public Nullable<int> userid { get; set; }
+        public Nullable<int> roleid { get; set; }
     }
 }

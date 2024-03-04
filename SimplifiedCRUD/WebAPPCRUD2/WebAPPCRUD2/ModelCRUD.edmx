@@ -4,9 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SimplifiedCRUDDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SimplifiedCRUDD.dbo.Role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+    <Schema Namespace="SimplifiedCRUDDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="id" />
@@ -14,8 +12,16 @@ warning 6002: The table/view 'SimplifiedCRUDD.dbo.Role' does not have a primary 
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SimplifiedCRUDD.dbo.Userr' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Userr">
           <Key>
             <PropertyRef Name="id" />
@@ -24,32 +30,84 @@ warning 6002: The table/view 'SimplifiedCRUDD.dbo.Userr' does not have a primary
           <Property Name="username" Type="nvarchar" MaxLength="50" />
           <Property Name="password" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="UserRolee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="userid" Type="int" />
+          <Property Name="roleid" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'SimplifiedCRUDD.dbo.vw_UserRole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_UserRole">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Userr_Userr">
+          <End Role="Userr" Type="Self.Userr" Multiplicity="1" />
+          <End Role="Userr1" Type="Self.Userr" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Userr">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Userr1">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="SimplifiedCRUDDModelStoreContainer">
-          <EntitySet Name="Role" EntityType="Self.Role" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Userr" EntityType="Self.Userr" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRolee" EntityType="Self.UserRolee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_UserRole" EntityType="Self.vw_UserRole" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[Role].[id] AS [id], 
-[Role].[RoleName] AS [RoleName]
-FROM [dbo].[Role] AS [Role]</DefiningQuery>
+[vw_UserRole].[id] AS [id], 
+[vw_UserRole].[username] AS [username], 
+[vw_UserRole].[RoleName] AS [RoleName]
+FROM [dbo].[vw_UserRole] AS [vw_UserRole]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="Userr" EntityType="Self.Userr" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[Userr].[id] AS [id], 
-[Userr].[username] AS [username], 
-[Userr].[password] AS [password]
-FROM [dbo].[Userr] AS [Userr]</DefiningQuery>
-          </EntitySet>
+          <AssociationSet Name="FK_Userr_Userr" Association="Self.FK_Userr_Userr">
+            <End Role="Userr" EntitySet="Userr" />
+            <End Role="Userr1" EntitySet="Userr" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SimplifiedCRUDDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SimplifiedCRUDDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Role" EntityType="SimplifiedCRUDDModel.Role" />
+          <EntitySet Name="sysdiagrams" EntityType="SimplifiedCRUDDModel.sysdiagrams" />
+          <EntitySet Name="Userr" EntityType="SimplifiedCRUDDModel.Userr" />
+          <EntitySet Name="UserRolee" EntityType="SimplifiedCRUDDModel.UserRolee" />
+          <EntitySet Name="vw_UserRole" EntityType="SimplifiedCRUDDModel.vw_UserRole" />
+          <AssociationSet Name="FK_Userr_Userr" Association="SimplifiedCRUDDModel.FK_Userr_Userr">
+            <End Role="Userr" EntitySet="Userr" />
+            <End Role="Userr1" EntitySet="Userr" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Userr">
           <Key>
@@ -58,12 +116,38 @@ FROM [dbo].[Userr] AS [Userr]</DefiningQuery>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Userr1" Relationship="SimplifiedCRUDDModel.FK_Userr_Userr" FromRole="Userr" ToRole="Userr1" />
+          <NavigationProperty Name="Userr2" Relationship="SimplifiedCRUDDModel.FK_Userr_Userr" FromRole="Userr1" ToRole="Userr" />
         </EntityType>
-        <EntityContainer Name="SimplifiedCRUDDEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Role" EntityType="Self.Role" />
-          <EntitySet Name="Userr" EntityType="Self.Userr" />
-        </EntityContainer>
-      </Schema>
+        <EntityType Name="UserRolee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="Int32" />
+          <Property Name="roleid" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vw_UserRole">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Userr_Userr">
+          <End Type="SimplifiedCRUDDModel.Userr" Role="Userr" Multiplicity="1" />
+          <End Type="SimplifiedCRUDDModel.Userr" Role="Userr1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Userr">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Userr1">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -72,17 +156,46 @@ FROM [dbo].[Userr] AS [Userr]</DefiningQuery>
           <EntitySetMapping Name="Role">
             <EntityTypeMapping TypeName="SimplifiedCRUDDModel.Role">
               <MappingFragment StoreEntitySet="Role">
-                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="SimplifiedCRUDDModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Userr">
             <EntityTypeMapping TypeName="SimplifiedCRUDDModel.Userr">
               <MappingFragment StoreEntitySet="Userr">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRolee">
+            <EntityTypeMapping TypeName="SimplifiedCRUDDModel.UserRolee">
+              <MappingFragment StoreEntitySet="UserRolee">
+                <ScalarProperty Name="roleid" ColumnName="roleid" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_UserRole">
+            <EntityTypeMapping TypeName="SimplifiedCRUDDModel.vw_UserRole">
+              <MappingFragment StoreEntitySet="vw_UserRole">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

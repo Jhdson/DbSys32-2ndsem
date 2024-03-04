@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'c:\users\jayhu\onedrive\documents\visual studio 2015\Projects\WebAPPCRUD2\WebAPPCRUD2\ModelCRUD.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\jayhu\OneDrive\Documents\GitHub\DbSys32-2ndsem\SimplifiedCRUD\WebAPPCRUD2\WebAPPCRUD2\ModelCRUD.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

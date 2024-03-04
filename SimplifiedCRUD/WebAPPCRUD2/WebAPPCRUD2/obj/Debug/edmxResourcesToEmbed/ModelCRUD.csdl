@@ -1,11 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="SimplifiedCRUDDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="SimplifiedCRUDDEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Role" EntityType="SimplifiedCRUDDModel.Role" />
+    <EntitySet Name="sysdiagrams" EntityType="SimplifiedCRUDDModel.sysdiagrams" />
+    <EntitySet Name="Userr" EntityType="SimplifiedCRUDDModel.Userr" />
+    <EntitySet Name="UserRolee" EntityType="SimplifiedCRUDDModel.UserRolee" />
+    <EntitySet Name="vw_UserRole" EntityType="SimplifiedCRUDDModel.vw_UserRole" />
+    <AssociationSet Name="FK_Userr_Userr" Association="SimplifiedCRUDDModel.FK_Userr_Userr">
+      <End Role="Userr" EntitySet="Userr" />
+      <End Role="Userr1" EntitySet="Userr" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="Role">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="Userr">
     <Key>
@@ -14,9 +35,35 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Userr1" Relationship="SimplifiedCRUDDModel.FK_Userr_Userr" FromRole="Userr" ToRole="Userr1" />
+    <NavigationProperty Name="Userr2" Relationship="SimplifiedCRUDDModel.FK_Userr_Userr" FromRole="Userr1" ToRole="Userr" />
   </EntityType>
-  <EntityContainer Name="SimplifiedCRUDDEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Role" EntityType="Self.Role" />
-    <EntitySet Name="Userr" EntityType="Self.Userr" />
-  </EntityContainer>
+  <EntityType Name="UserRolee">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userid" Type="Int32" />
+    <Property Name="roleid" Type="Int32" />
+  </EntityType>
+  <EntityType Name="vw_UserRole">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Userr_Userr">
+    <End Type="SimplifiedCRUDDModel.Userr" Role="Userr" Multiplicity="1" />
+    <End Type="SimplifiedCRUDDModel.Userr" Role="Userr1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Userr">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Userr1">
+        <PropertyRef Name="id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

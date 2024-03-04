@@ -5,8 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="da6e1fb0655041ebb2f502287a2e243b" Name="Diagram1">
-        <EntityTypeShape EntityType="SimplifiedCRUDDModel.Role" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimplifiedCRUDDModel.Userr" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimplifiedCRUDDModel.Role" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SimplifiedCRUDDModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SimplifiedCRUDDModel.Userr" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="SimplifiedCRUDDModel.UserRolee" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="SimplifiedCRUDDModel.vw_UserRole" Width="1.5" PointX="4.75" PointY="0.75" />
+        <AssociationConnector Association="SimplifiedCRUDDModel.FK_Userr_Userr" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
